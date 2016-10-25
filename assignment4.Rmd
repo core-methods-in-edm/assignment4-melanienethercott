@@ -1,0 +1,94 @@
+---
+title: "Principle Component Aanalysis"
+output: html_document
+---
+#Data
+The data you will be using comes from teh Assistments online intelligent tutoring system (https://www.assistments.org/). It describes students working through online math problems. Each student has the following data associated with them:
+
+- id
+- prior_prob_count: How many problems a student has answered in the system prior to this session
+- prior_percent_correct: The percentage of problems a student has answered correctly prior to this session
+- problems_attempted: The number of problems the student has attempted in the current session
+- mean_correct: The average number of correct answers a student made on their first attempt at problems in the current session
+- mean_hint: The average number of hints a student asked for in the current session
+- mean_attempt: The average number of attempts a student took to answer a problem in the current session
+- mean_confidence: The average confidence each student has in their ability to answer the problems in the current session
+
+#Start by uploading the data
+```{r}
+D1 <- 
+
+  #We won't need to id variable, so remove that.
+
+
+```
+
+#Create a correlation matrix of the relationships between the variables, including correlation coefficients for each pair of variables/features.
+
+```{r}
+#You can install the corrplot package to plot some pretty correlation matrices (sometimes called correlograms)
+
+library(corrplot)
+
+#Generate pairwise correlations
+COR <- cor(D1)
+
+corrplot(COR, order="AOE", method="circle", tl.pos="lt", type="upper",        
+tl.col="black", tl.cex=0.6, tl.srt=45, 
+        addCoef.col="black", addCoefasPercent = TRUE,
+        sig.level=0.50, insig = "blank")
+
+#Study your correlogram image and save it, you will need it later
+```
+
+#Create a new data frame with the mean_correct variables removed
+
+```{r}
+D2 <- 
+
+#The, scale and center your data for easier interpretation
+D2 <- scale(D2, center = TRUE)
+```
+
+#Now run the PCA on the new data frame
+
+```{r}
+pca <- prcomp(D2, scale = TRUE)
+```
+
+#Although the algorithm does not generate the eigenvalues directly for us, we can print a list of the standard deviation of the variance accounted for by each component.
+
+```{r}
+pca$sdev
+
+#To convert this into variance accounted for we can square it, these numbers are proportional to the eigenvalue
+
+pca$sdev^2
+
+#A summary of our pca will give us the proportion of variance accounted for by each component
+
+summary(pca)
+
+#We can lot this to get an idea of which components we should keep and which we should drop
+
+plot(pca, type = "lines")
+```
+
+#Think about which components you would drop and make a decision
+
+```{r}
+#Now, create a data frame of the transformed data from your pca.
+
+D3 <- as.data.frame(pca$x)
+
+#Attach the variable "mean_correct" from your original data frame to D3.
+
+D4 <- cbind(D3, as.data.frame(D1$mean_correct))
+
+#Now re-run your scatterplots and correlations between the transformed data and mean_correct. If you had dropped some components would you have lost important infomation about mean_correct?
+
+COR2 <- 
+
+  
+```
+
