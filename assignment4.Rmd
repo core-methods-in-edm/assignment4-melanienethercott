@@ -99,7 +99,7 @@ pca$rotation
 
 loadings <- abs(pca$rotation) #abs() will make all eigenvectors positive
 
-sweep(loadings, 2, colSums(aload), "/") #sweep() computes each row as a proportion of the column. (There must be a way to do this with dplyr()?)
+sweep(loadings, 2, colSums(loadings), "/") #sweep() computes each row as a proportion of the column. (There must be a way to do this with dplyr()?)
 
 #Now examine your components and try to come up with substantive descriptions of what some might represent?
 
