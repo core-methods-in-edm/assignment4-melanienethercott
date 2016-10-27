@@ -89,6 +89,26 @@ D4 <- cbind(D3, as.data.frame(D1$mean_correct))
 
 COR2 <- 
 
-  
+```
+#Now print out the eigenvectors (often called loadings) for the components you generated:
+
+```{r}
+pca$rotation
+
+#Examine the eigenvectors, notice that they are a little difficult to interpret. It is much easier to make sense of them if we make them proportional within each component
+
+loadings <- abs(pca$rotation) #abs() will make all eigenvectors positive
+
+sweep(loadings, 2, colSums(aload), "/") #sweep() computes each row as a proportion of the column. (There must be a way to do this with dplyr()?)
+
+#Now examine your components and try to come up with substantive descriptions of what some might represent?
+
+#You can generate a biplot to help you, though these can be a bit confusing. They plot the transformed data by the first two components. Therefore, the axes represent the direction of maximum variance. Then mapped onto this point cloud are the original directions of the variables, depicted as red arrows. It is supposed to provide a visualization of which variables "go together". Variables that possibly represent the same underlying construct point in the same direction.  
+
+biplot(pca)
+
+#Calculate values for each student that represent these your composite variables and then create a new correlogram showing their relationship to mean_correct.
+
 ```
 
+#Also in this repository is a data set and codebook from Rod Martin, Patricia Puhlik-Doris, Gwen Larsen, Jeanette Gray, Kelly Weir at the University of Western Ontario about people's sense of humor. Can you perform a PCA on this data?
