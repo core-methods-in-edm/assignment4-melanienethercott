@@ -2,7 +2,7 @@
 title: "Principle Component Aanalysis"
 output: html_document
 ---
-#Data
+## Data
 The data you will be using comes from the Assistments online intelligent tutoring system (https://www.assistments.org/). It describes students working through online math problems. Each student has the following data associated with them:
 
 - id
@@ -14,7 +14,7 @@ The data you will be using comes from the Assistments online intelligent tutorin
 - mean_attempt: The average number of attempts a student took to answer a problem in the current session
 - mean_confidence: The average confidence each student has in their ability to answer the problems in the current session
 
-#Start by uploading the data
+## Start by uploading the data
 ```{r}
 D1 <- 
 
@@ -23,7 +23,7 @@ D1 <-
 
 ```
 
-#Create a correlation matrix of the relationships between the variables, including correlation coefficients for each pair of variables/features.
+## Create a correlation matrix of the relationships between the variables, including correlation coefficients for each pair of variables/features.
 
 ```{r}
 #You can install the corrplot package to plot some pretty correlation matrices (sometimes called correlograms)
@@ -41,7 +41,7 @@ tl.col="black", tl.cex=0.6, tl.srt=45,
 #Study your correlogram image and save it, you will need it later
 ```
 
-#Create a new data frame with the mean_correct variables removed
+## Create a new data frame with the mean_correct variables removed
 
 ```{r}
 D2 <- 
@@ -50,13 +50,13 @@ D2 <-
 D2 <- scale(D2, center = TRUE)
 ```
 
-#Now run the PCA on the new data frame
+## Now run the PCA on the new data frame
 
 ```{r}
 pca <- prcomp(D2, scale = TRUE)
 ```
 
-#Although princomp does not generate the eigenvalues directly for us, we can print a list of the standard deviation of the variance accounted for by each component.
+## Although princomp does not generate the eigenvalues directly for us, we can print a list of the standard deviation of the variance accounted for by each component.
 
 ```{r}
 pca$sdev
@@ -74,9 +74,9 @@ summary(pca)
 plot(pca, type = "lines")
 ```
 
-#Think about which components you would drop and make a decision
+## Think about which components you would drop and make a decision
 
-#Part II
+## Part II
 
 ```{r}
 #Now, create a data frame of the transformed data from your pca.
@@ -92,7 +92,7 @@ D4 <- cbind(D3, as.data.frame(D1$mean_correct))
 COR2 <- 
 
 ```
-#Now print out the eigenvectors (often called loadings) for the components you generated:
+## Now print out the eigenvectors (often called loadings) for the components you generated:
 
 ```{r}
 pca$rotation
@@ -112,5 +112,5 @@ biplot(pca)
 #Calculate values for each student that represent these your composite variables and then create a new correlogram showing their relationship to mean_correct.
 
 ```
-## Part III  
-# Also in this repository is a data set and codebook from Rod Martin, Patricia Puhlik-Doris, Gwen Larsen, Jeanette Gray, Kelly Weir at the University of Western Ontario about people's sense of humor. Can you perform a PCA on this data?
+# Part III  
+## Also in this repository is a data set and codebook from Rod Martin, Patricia Puhlik-Doris, Gwen Larsen, Jeanette Gray, Kelly Weir at the University of Western Ontario about people's sense of humor. Can you perform a PCA on this data?
